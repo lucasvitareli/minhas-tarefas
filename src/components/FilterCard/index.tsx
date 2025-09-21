@@ -3,12 +3,14 @@ import * as S from './styles'
 /* Defines the props and exports to the FilterCard styled component.*/
 export type Props = {
   active?: boolean
+  counter?: number
+  text?: string
 }
 
-const FilterCard = (props: Props) => (
-  <S.Card active={props.active}>
-    <S.Counter>3</S.Counter>
-    <S.Label>Pending Tasks</S.Label>
+const FilterCard = ({ active, counter, text }: Props) => (
+  <S.Card active={active}>
+    <S.Counter>{counter}</S.Counter>
+    <S.Label>{text}</S.Label>
   </S.Card>
 )
 
