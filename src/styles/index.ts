@@ -1,3 +1,5 @@
+// This file contains global styles and a container style for the app layout.
+
 import styled, { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`

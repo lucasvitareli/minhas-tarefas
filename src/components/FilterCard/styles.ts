@@ -12,6 +12,7 @@ export const Card = styled.div<PropsExclude>`
   background-color: ${(props) => (props.active ? '#fff' : '#fcfcfc')};
   color: ${(props) => (props.active ? '#1e90ff' : '#5e5e5e')};
   border-radius: 8px;
+  text-align: center;
 `
 
 export const Counter = styled.span`
