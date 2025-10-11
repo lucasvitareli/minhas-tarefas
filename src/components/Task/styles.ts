@@ -1,5 +1,25 @@
 // styles for Task component
 import styled from 'styled-components'
+import variables from '../../styles/variables'
+
+// defining types for props
+type TagProps = {
+  priority?: string
+  status?: string
+}
+
+// function to return background color based on props
+function returnBgColor(props: TagProps): string {
+  if ('status' in props) {
+    if (props.status === 'Pending') return variables.yellow
+    if (props.status === 'Done') return variables.green
+  } else if ('priority' in props) {
+    if (props.priority === 'Urgent') return variables.red
+    if (props.priority === 'Important') return variables.yellow2
+  }
+  // default color if no conditions match
+  return '#ccc'
+}
 
 export const Card = styled.div`
   background: #fcfcfc;
@@ -16,12 +36,13 @@ export const Title = styled.h3`
   margin-bottom: 16px;
 `
 
-export const Tag = styled.span`
+// using props in styled-components
+export const Tag = styled.span<TagProps>`
   padding: 4px 8px;
   font-size: 10px;
   font-weight: 700;
   color: #fff;
-  background-color: #e1a32a;
+  background-color: ${(props) => returnBgColor(props)};
   border-radius: 8px;
   margin-right: 8px;
   display: inline-block;
@@ -42,7 +63,7 @@ export const Description = styled.textarea`
 `
 
 export const ActionBar = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
   padding-top: 16px;
 `
 
@@ -56,4 +77,12 @@ export const Button = styled.button`
   background: #2f3640;
   border-radius: 8px;
   margin-right: 8px;
+`
+
+// extending styles of Button component
+export const ButtonSave = styled(Button)`
+  background-color: ${variables.green};
+`
+export const ButtonCancelDelete = styled(Button)`
+  background-color: ${variables.red};
 `
