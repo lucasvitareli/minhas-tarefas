@@ -1,29 +1,31 @@
 // styles for Task component
 import styled from 'styled-components'
 import variables from '../../styles/variables'
+import * as enums from '../../utils/enums/task'
 
 // defining types for props
 type TagProps = {
   priority?: string
   status?: string
+  params: 'priority' | 'status'
 }
 
 // function to return background color based on props
 function returnBgColor(props: TagProps): string {
-  if ('status' in props) {
-    if (props.status === 'Pending') return variables.yellow
-    if (props.status === 'Done') return variables.green
-  } else if ('priority' in props) {
-    if (props.priority === 'Urgent') return variables.red
-    if (props.priority === 'Important') return variables.yellow2
+  if (props.params === 'status') {
+    if (props.status === enums.Status.PENDING) return variables.yellow
+    if (props.status === enums.Status.DONE) return variables.green
+  } else {
+    if (props.priority === enums.Priority.IMPORTANT) return variables.yellow2
+    if (props.priority === enums.Priority.URGENT) return variables.red
   }
-  // default color if no conditions match
+
   return '#ccc'
 }
 
 export const Card = styled.div`
   background: #fcfcfc;
-  filter: box-shadow 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
   padding: 16px;
   margin-bottom: 32px;
   border-radius: 16px;

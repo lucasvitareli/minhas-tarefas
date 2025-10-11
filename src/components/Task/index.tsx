@@ -2,10 +2,12 @@
 import { useState } from 'react'
 import * as S from './styles'
 
+import * as enums from '../../utils/enums/task'
+
 type Props = {
   title?: string
-  priority?: string
-  status?: string
+  priority?: enums.Priority
+  status?: enums.Status
   description?: string
 }
 
@@ -14,8 +16,12 @@ const Task = ({ description, priority, status, title }: Props) => {
   return (
     <S.Card>
       <S.Title>{title}</S.Title>
-      <S.Tag priority={priority}>{priority}</S.Tag>
-      <S.Tag status={status}>{status}</S.Tag>
+      <S.Tag priority={priority} params="priority">
+        {priority}
+      </S.Tag>
+      <S.Tag status={status} params="status">
+        {status}
+      </S.Tag>
       <S.Description value={description} />
       <S.ActionBar>
         {editing ? (
