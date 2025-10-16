@@ -1,36 +1,51 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Task from '../../models/Task'
 import * as enums from '../../utils/enums/task'
-import { act } from 'react'
 
+type TaskState = {
+  items: Task[]
+}
+
+const initialState: TaskState = {
+  items: [
+    {
+      id: 1,
+      title: 'Study TypeScript',
+      priority: enums.Priority.IMPORTANT,
+      status: enums.Status.PENDING,
+      description: 'Watch videos and do exercises'
+    },
+    {
+      id: 2,
+      title: 'Read book',
+      priority: enums.Priority.NORMAL,
+      status: enums.Status.PENDING,
+      description: 'Read 30 pages of my book'
+    },
+    {
+      id: 3,
+      title: 'Gym',
+      priority: enums.Priority.NORMAL,
+      status: enums.Status.DONE,
+      description: 'Leg day at the gym'
+    },
+    {
+      id: 4,
+      title: 'Call the bank',
+      priority: enums.Priority.URGENT,
+      status: enums.Status.PENDING,
+      description: 'Ask about the new credit card'
+    }
+  ]
+}
+
+// Create Slice is a function that accepts an initial state, an object full of reducer functions, and a slice name
 const taskSlice = createSlice({
   name: 'tasks',
-  initialState: [
-    new Task(
-      'Study TypeScript',
-      enums.Priority.IMPORTANT,
-      enums.Status.PENDING,
-      'Watch videos and do exercises',
-      1
-    ),
-    new Task(
-      'Read book',
-      enums.Priority.NORMAL,
-      enums.Status.PENDING,
-      'Read 30 pages of my book',
-      2
-    ),
-    new Task(
-      'Gym',
-      enums.Priority.URGENT,
-      enums.Status.DONE,
-      'Leg day at the gym',
-      3
-    )
-  ],
+  initialState,
   reducers: {
     remove: (state, action: PayloadAction<number>) => {
-      state.filter((task: Task) => task.id !== action.payload)
+      state.items = state.items.filter((task) => task.id !== action.payload)
     }
   }
 })

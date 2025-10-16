@@ -1,17 +1,19 @@
 // importing every component from styles as S
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
 import * as S from './styles'
 
 import * as enums from '../../utils/enums/task'
 
-type Props = {
-  title?: string
-  priority?: enums.Priority
-  status?: enums.Status
-  description?: string
-}
+// importing the remove action from tasks reducer
+import { remove } from '../../store/reducers/tasks'
+import TaskClass from '../../models/Task'
 
-const Task = ({ description, priority, status, title }: Props) => {
+type Props = TaskClass
+
+const Task = ({ description, priority, status, title, id }: Props) => {
+  const dispatch = useDispatch()
   const [editing, setEditing] = useState(false)
   return (
     <S.Card>
@@ -34,7 +36,9 @@ const Task = ({ description, priority, status, title }: Props) => {
         ) : (
           <>
             <S.Button onClick={() => setEditing(true)}>Edit</S.Button>
-            <S.ButtonCancelDelete>Delete</S.ButtonCancelDelete>
+            <S.ButtonCancelDelete onClick={() => dispatch(remove(id))}>
+              Delete
+            </S.ButtonCancelDelete>
           </>
         )}
       </S.ActionBar>
