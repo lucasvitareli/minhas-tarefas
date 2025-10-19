@@ -44,12 +44,21 @@ const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
+    // we create the remove action that will receive the id of the task to be removed
     remove: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((task) => task.id !== action.payload)
+    },
+    // we create the edit action and then, we find the task to be edited
+    edit: (state, action: PayloadAction<Task>) => {
+      const indexTask = state.items.findIndex((t) => t.id === action.payload.id)
+
+      if (indexTask >= 0) {
+        state.items[indexTask] = action.payload
+      }
     }
   }
 })
 
-export const { remove } = taskSlice.actions
+export const { remove, edit } = taskSlice.actions
 
 export default taskSlice.reducer
